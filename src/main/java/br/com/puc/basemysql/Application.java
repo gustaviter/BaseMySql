@@ -242,6 +242,36 @@ public class Application {
 		session.close();
 	}
 	
+	/*public void consultarInformacoes() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		Query q = session.createSQLQuery("SELECT Count(*) "
+				+ "FROM Pessoa AS PE "
+				+ "INNER JOIN Operacao AS OP ON PE.idPessoa = OP.idPessoa "
+				+ "INNER JOIN TipoOperacao AS CO ON OP.idTipoOperacao = CO.idTipoOperacao "
+				+ "INNER JOIN Produto AS PR ON OP.idProduto = PR.idProduto "
+				+ "INNER JOIN Categoria AS CA ON PR.idCategoria = CA.idCategoria "
+				+ "WHERE CO.idTipoOperacao = 1 AND CA.descricao = 'Celulares' AND PE.nome like 'Alessandra Soares';");
+        List resultList = q.list();
+        
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	public void consultarInformacoes() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		Query q = session.createSQLQuery("SELECT Count(*) FROM Produto AS PR "
+				+ "INNER JOIN Categoria AS CA ON PR.idCategoria = CA.idCategoria "
+				+ "WHERE CA.descricao = 'Jogos';");
+        List resultList = q.list();
+        
+		session.getTransaction().commit();
+		session.close();
+	}*/
+	
 	private void limparInformacoes() {
 		limparBase();
 		pessoas = new HashSet<Pessoa>();
