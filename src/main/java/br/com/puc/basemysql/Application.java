@@ -263,9 +263,18 @@ public class Application {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		Query q = session.createSQLQuery("SELECT Count(*) FROM Produto AS PR "
+		Query q = session.createSQLQuery("SELECT PE.nome, PE.email, PE.UF, CA.descricao, Count(*) "
+				+ "FROM Pessoa AS PE INNER JOIN Operacao AS OP ON PE.idPessoa = OP.idPessoa "
+				+ "INNER JOIN TipoOperacao AS CO ON OP.idTipoOperacao = CO.idTipoOperacao "
+				+ "INNER JOIN Produto AS PR ON OP.idProduto = PR.idProduto "
 				+ "INNER JOIN Categoria AS CA ON PR.idCategoria = CA.idCategoria "
-				+ "WHERE CA.descricao = 'Jogos';");
+				+ "WHERE CO.idTipoOperacao = 2 AND CA.descricao = 'Celulares' AND PE.UF = 'RJ"
+				+ " AND EXISTS ( 	SELECT 0 FROM Pessoa AS PE_V INNER JOIN Operacao AS OP_V ON PE_V.idPessoa = OP_V.idPessoa "
+				+ "INNER JOIN TipoOperacao AS CO_V ON OP_V.idTipoOperacao = CO_V.idTipoOperacao "
+				+ "INNER JOIN Produto AS PR_V ON OP_V.idProduto = PR_V.idProduto "
+				+ "INNER JOIN Categoria AS CA_V ON PR_V.idCategoria = CA_V.idCategoria "
+				+ "WHERE CO_V.idTipoOperacao = 2 AND CA.descricao = 'Jogos' AND PE_V.idPessoa = PE.idPessoa) "
+				+ "GROUP BY PE.nome, PE.email, PE.UF, CA.descricao;");
         List resultList = q.list();
         
 		session.getTransaction().commit();
