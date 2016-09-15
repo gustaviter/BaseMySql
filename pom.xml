@@ -7,6 +7,7 @@
 	<version>1.0.0</version>
 	<name>baseMySql</name>
 	<url>http://maven.apache.org</url>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -40,6 +41,7 @@
 			<version>1.0.0.GA</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
